@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Estructura base limpia y profesional para proyectos web desarrollados con HTML, CSS y JavaScript vanilla.">
+  <title>Proyecto Web | Inicio</title>
+  
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <!-- Script principal diferido -->
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <!-- Encabezado del sitio -->
+  <header id="main-header" class="header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo" id="brand-logo">ProyectoWeb</a>
+      
+      <!-- Navegación principal -->
+      <nav id="main-nav" class="nav" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link active">Inicio</a></li>
+          <li class="nav-item"><a href="#database-section" class="nav-link">Base de Datos</a></li>
+          <li class="nav-item"><a href="#acerca" class="nav-link">Acerca de</a></li>
+          <li class="nav-item"><a href="#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main id="main-content">
+    <!-- Sección principal (Hero) -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <span class="badge">Estructura Vanilla + MySQL Local</span>
+          <h1 class="hero-title">Proyecto Web Conectado a MySQL</h1>
+          <p class="hero-description">
+            Integración completa de frontend vanilla con base de datos MySQL local mediante una API REST en PHP.
+            Consultas seguras mediante PDO y actualización reactiva en el cliente con JavaScript.
+          </p>
+          <div class="hero-actions">
+            <a href="#database-section" class="btn btn-primary" id="btn-explore">Ver Estado de MySQL</a>
+            <a href="https://dev.mysql.com/doc/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="btn-mdn">Documentación MySQL</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Base de Datos y CRUD -->
+    <section id="database-section" class="db-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge">Conexión Local</span>
+          <h2 class="section-title">Panel de Control de Base de Datos</h2>
+          <p class="section-subtitle">Supervisa la conexión a tu base de datos MySQL y gestiona registros en tiempo real.</p>
+        </div>
+
+        <!-- Tarjeta de Estado de Conexión -->
+        <div class="db-status-card" id="db-status-card">
+          <div class="status-indicator-group">
+            <div class="status-dot connecting" id="status-dot"></div>
+            <div>
+              <h3 class="status-title" id="status-text">Verificando conexión con MySQL...</h3>
+              <p class="status-details" id="status-details">Consultando endpoint local en /api/status.php</p>
+            </div>
+          </div>
+          <div class="status-meta" id="status-meta">
+            <span class="meta-item"><strong>Host:</strong> <span id="meta-host">127.0.0.1:3306</span></span>
+            <span class="meta-item"><strong>BD:</strong> <span id="meta-db">practica_3</span></span>
+            <span class="meta-item"><strong>Versión:</strong> <span id="meta-version">-</span></span>
+          </div>
+          <button type="button" class="btn btn-outline-sm" id="btn-recheck">Reintentar Conexión</button>
+        </div>
+
+        <!-- Contenedor de Alertas Dinámicas -->
+        <div id="alert-container" class="alert-container" aria-live="polite"></div>
+
+        <!-- Panel Interactivo: Formulario y Tabla -->
+        <div class="db-grid">
+          <!-- Columna 1: Formulario de Registro -->
+          <div class="card form-card">
+            <h3 class="card-title">Registrar Nuevo Usuario</h3>
+            <p class="card-subtitle">Inserta registros directos en la tabla <code>usuarios</code> de MySQL.</p>
+            
+            <form id="form-usuario" class="db-form" novalidate>
+              <div class="form-group">
+                <label for="input-name" class="form-label">Nombre Completo</label>
+                <input 
+                  type="text" 
+                  id="input-name" 
+                  name="name" 
+                  class="form-input" 
+                  placeholder="Ej. Laura González" 
+                  required
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="input-email" class="form-label">Correo Electrónico</label>
+                <input 
+                  type="email" 
+                  id="input-email" 
+                  name="email" 
+                  class="form-input" 
+                  placeholder="ejemplo@correo.com" 
+                  required
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="input-password" class="form-label">Contraseña</label>
+                <input 
+                  type="password" 
+                  id="input-password" 
+                  name="password" 
+                  class="form-input" 
+                  placeholder="••••••••" 
+                  required
+                >
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block" id="btn-submit-usuario">
+                Guardar en MySQL
+              </button>
+            </form>
+          </div>
+
+          <!-- Columna 2: Tabla de Datos en Tiempo Real -->
+          <div class="card table-card">
+            <div class="card-header-flex">
+              <div>
+                <h3 class="card-title">Usuarios en Base de Datos</h3>
+                <p class="card-subtitle">Registros obtenidos vía <code>GET /api/usuarios.php</code></p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-usuarios" title="Refrescar datos">
+                Actualizar Lista
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="db-table" id="tabla-usuarios">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Fecha de Registro</th>
+                  </tr>
+                </thead>
+                <tbody id="usuarios-tbody">
+                  <tr>
+                    <td colspan="4" class="text-center text-muted">Cargando datos desde MySQL...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer id="main-footer" class="footer">
+    <div class="container footer-container">
+      <p>&copy; <span id="current-year">2026</span> ProyectoWeb. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
