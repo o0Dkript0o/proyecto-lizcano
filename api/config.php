@@ -11,9 +11,9 @@ declare(strict_types=1);
 // Parámetros de conexión a MySQL local
 define('DB_HOST', '127.0.0.1');
 define('DB_PORT', '3306');
-define('DB_NAME', 'practica_3');
-define('DB_USER', 'root');
-define('DB_PASS', 'Dk27003316?'); // Coloca aquí la contraseña de tu usuario MySQL si tiene una
+define('DB_NAME', 'TU_DB');
+define('DB_USER', 'TU_USUARIO');
+define('DB_PASS', '?'); // Coloca aquí la contraseña de tu usuario MySQL si tiene una
 
 /**
  * Establece y retorna una instancia de conexión PDO a MySQL.
